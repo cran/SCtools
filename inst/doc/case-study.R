@@ -1,14 +1,14 @@
-## ---- include = FALSE----------------------------------------------------
+## ---- include = FALSE---------------------------------------------------------
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 7, fig.height = 7, fig.align = "center")
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 library(dplyr)
 library(ggplot2)
 library(SCtools)
 library(Synth)
 theme_set(theme_minimal())
 
-## ----russia-graph, fig.cap="Trend of Alcohol Consumption in Russia"------
+## ----russia-graph, fig.cap="Trend of Alcohol Consumption in Russia"-----------
 alcohol %>% 
   filter(country_name == "Russian Federation") %>% 
 	ggplot(aes(year, consumption))+
@@ -22,7 +22,7 @@ alcohol %>%
 		caption = "Data: World Health Organization"
 	)
 
-## ----fig.cap="Trends in Predictors in Russian Federation"----------------
+## ----fig.cap="Trends in Predictors in Russian Federation"---------------------
 alcohol %>% 
   filter(country_name == "Russian Federation") %>% 
 	select(year, consumption,labor_force_participation_rate:manufacturing) %>% 
@@ -31,7 +31,7 @@ alcohol %>%
 	geom_line()+
 		facet_wrap(~predictor, scales = "free")
 
-## ----fig.cap="Review of Possible Donors", fig.width=5--------------------
+## ----fig.cap="Review of Possible Donors", fig.width=5-------------------------
 p1 <- alcohol %>% 
 	mutate(my_color = ifelse(country_code == "RUS", "Russia", "Other")) %>% 
 	ggplot(aes(year, consumption, group = country_code, color = my_color))+
@@ -41,7 +41,7 @@ p1 <- alcohol %>%
 	xlim(1990,2005)
 p1
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 comparison_states <- c("USA", "UK", "UKR", "KAZ",
 											 "GBR", "ESP", "DEU", "POL",
 											 "FIN", "FRA", "GRC", "IRL",
@@ -55,7 +55,7 @@ control_ids <- alcohol %>%
 	distinct() %>% 
 	pull(country_num)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 dataprep.out<-dataprep(
 	    foo = as.data.frame(alcohol),
 	    predictors = c("labor_force_participation_rate",
@@ -76,13 +76,13 @@ dataprep.out<-dataprep(
 	    time.plot = 1992:2015
 	)
 
-## ----echo=FALSE----------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 out <- readRDS("out.rds")
 
-## ----eval=FALSE----------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  out <- synth(dataprep.out, Sigf.ipop = 3)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 solution <- out$solution.w %>% 
 	as.data.frame()
 
@@ -107,7 +107,7 @@ solution %>%
 path.plot(synth.res = out, dataprep.res = dataprep.out, 
 					Xlab = "per Capita Alcohol Consumption", )
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 delta_out <- (dataprep.out$Y1plot - (dataprep.out$Y0plot %*% out$solution.w)) %>% 
 	as.data.frame()
 
@@ -116,20 +116,20 @@ delta_out$year <- rownames(delta_out)
 delta_out%>% 
 	knitr::kable(caption = "Difference in Alcohol Consumption Between Synthetic and Actual Russia", digits = 2)
 
-## ----echo=FALSE----------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 placebo <- readRDS("placebo.rds")
 
-## ----eval=FALSE----------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  placebo <- generate.placebos(dataprep.out = dataprep.out,
 #                               synth.out = out, strategy = "multiprocess")
 
-## ----fig.cap="Placebo Plot for Control Units"----------------------------
+## ----fig.cap="Placebo Plot for Control Units"---------------------------------
 plot_placebos(placebo)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 test_out <- mspe.test(placebo)
 test_out$p.val
 
-## ----fig.cap="Mean Squared Prediction Error Ratios for Russia and Donors"----
+## ----fig.cap="Mean Squared Prediction Error Ratios for Russia and Donors"-----
 mspe.plot(tdf = placebo)
 

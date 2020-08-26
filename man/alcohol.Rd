@@ -4,7 +4,8 @@
 \name{alcohol}
 \alias{alcohol}
 \title{World Alcohol per Capita Consumption}
-\format{a data.frame with 5107 rows and 8 columns:
+\format{
+a data.frame with 5107 rows and 8 columns:
 
 \describe{
   \item{country_name}{The name of the country}
@@ -16,7 +17,8 @@
   \item{inflation}{Inflation, consumer prices (annual percent)}
   \item{manufacturing}{Manufacturing, value added (percent of GDP)}
   \item{country_num}{The country number}
-}}
+}
+}
 \usage{
 alcohol
 }
@@ -29,7 +31,7 @@ approaches to be used. You can read more about the policy changes at
 \url{https://www.theguardian.com/world/2019/oct/01/russian-alcohol-consumption-down-40-since-2003-who}
 }
 \details{
-WHO data available at \url{http://apps.who.int/gho/data/node.main.A1039?lang=en}.
+WHO data available at \url{https://apps.who.int/gho/data/node.main.A1039?lang=en}.
 
 WB data available at \url{https://data.worldbank.org/}.
 }
