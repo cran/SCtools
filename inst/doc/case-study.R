@@ -121,7 +121,7 @@ placebo <- readRDS("placebo.rds")
 
 ## ----eval=FALSE---------------------------------------------------------------
 #  placebo <- generate.placebos(dataprep.out = dataprep.out,
-#                               synth.out = out, strategy = "multiprocess")
+#                               synth.out = out, strategy = "multicore")
 
 ## ----fig.cap="Placebo Plot for Control Units"---------------------------------
 plot_placebos(placebo)
