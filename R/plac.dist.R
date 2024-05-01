@@ -5,7 +5,7 @@
 #'     significance of the observed ATE. Does so by sampling k placebos 
 #'     (where k = the number of treated units) nboots times, and calculating 
 #'     the average treatment effect of the k placebos each time.
-#' @param multiple.synth multiple.synth}{An object returned by the function 
+#' @param multiple.synth An object returned by the function 
 #'    \code{\link{multiple.synth}}
 #' @param nboots Number of bootstrapped samples of placebos to take.
 #' Default is \code{500}. It should be higher for more reliable inference.
@@ -19,7 +19,7 @@
 #' p-value in a two-tailed test.}
 #' }
 #' @examples 
-#' \dontrun{
+#' \donttest{
 #' ## Using the toy data from Synth:
 #' library(Synth)
 #' data(synth.data)

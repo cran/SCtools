@@ -11,7 +11,7 @@ plac.dist(multiple.synth, nboots = 500)
 plac_dist(multiple.synth, nboots = 500)
 }
 \arguments{
-\item{multiple.synth}{multiple.synth}{An object returned by the function 
+\item{multiple.synth}{An object returned by the function 
 \code{\link{multiple.synth}}}
 
 \item{nboots}{Number of bootstrapped samples of placebos to take.
@@ -36,7 +36,7 @@ Takes the output object of \code{\link{multiple.synth}} creates a
     the average treatment effect of the k placebos each time.
 }
 \examples{
-\dontrun{
+\donttest{
 ## Using the toy data from Synth:
 library(Synth)
 data(synth.data)
